@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/jaria/Downloads/index%20(1).html -->
+<!-- saved from url=(0049)file:///C:/Users/jaria/Downloads/index%20(3).html -->
 <html lang="fi"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -231,7 +231,7 @@
 
   /* Modal overlay */
   .modal-bg {
-    position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:100;
+    position:fixed; inset:0; background:rgba(6,4,2,0.98); z-index:100;
     display:flex; align-items:center; justify-content:center;
   }
   .modal {
@@ -296,38 +296,38 @@
   <h1 class="title">⚔ Kapteeni Ylivalta ⚔</h1>
 
 
-  <div id="phase-bar" style="background: rgb(192, 57, 43);">
-    <div id="phase-text">Punainen — Aseta kapteeni omalle alueelle</div>
+  <div id="phase-bar">
+    <div id="phase-text">Ladataan...</div>
     <div id="phase-sub"></div>
   </div>
 
 
   <div class="main-area">
     <div id="board-wrap">
-      <div id="board"><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell blue"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div><div class="cell red highlight"><span class="card-val">1</span><span class="fort-icon">🏰</span></div></div>
-      <svg id="board-svg-overlay" width="480" height="320" viewBox="0 0 480 320"><line x1="159.66666666666666" y1="0" x2="159.66666666666666" y2="78.5" stroke="#111" stroke-width="8" stroke-linecap="round"></line><line x1="320.3333333333333" y1="0" x2="320.3333333333333" y2="78.5" stroke="#111" stroke-width="8" stroke-linecap="round"></line><line x1="320.3333333333333" y1="161" x2="320.3333333333333" y2="239.5" stroke="#111" stroke-width="8" stroke-linecap="round"></line><line x1="159.66666666666666" y1="241.5" x2="159.66666666666666" y2="320" stroke="#111" stroke-width="8" stroke-linecap="round"></line><line x1="0" y1="160" x2="158.66666666666666" y2="160" stroke="#111" stroke-width="8" stroke-linecap="round"></line></svg>
+      <div id="board"></div>
+      <svg id="board-svg-overlay"></svg>
     </div>
     <div class="side">
       <div class="panel" id="players-panel">
         <h3>Pelaajat</h3>
-        <div id="players-list"><div class="player-row active-player"><div class="player-dot" style="background:#c0392b"></div><div class="player-name">Punainen</div><div class="player-info">👤 | Alueet: 12 | Sotilaat: 28 | <span style="background:var(--gold2);color:#111;font-weight:bold;padding:1px 7px;border-radius:4px">Suurin alue: 7</span></div></div><div class="player-row"><div class="player-dot" style="background:#2980b9"></div><div class="player-name">Sininen</div><div class="player-info">🤖 | Alueet: 12 | Sotilaat: 28 | <span style="background:var(--gold2);color:#111;font-weight:bold;padding:1px 7px;border-radius:4px">Suurin alue: 6</span></div></div></div>
+        <div id="players-list"></div>
       </div>
       <div id="win-screen" style="display: none;"></div>
       <div class="panel" id="hand-fort-panel">
         <div id="hand-fort-inner" style="display:flex;flex-direction:row;align-items:flex-start;flex-wrap:wrap;">
           <div style="flex:1;">
-            <h3 id="hand-title">Punainen: Sotilaat</h3>
-            <div id="hand-area" style="display:flex;flex-wrap:wrap;gap:4px;"><div class="card fighter"><span class="card-pts">4</span><span class="card-type">VOIMA</span></div><div class="card fighter"><span class="card-pts">2</span><span class="card-type">VOIMA</span></div><div class="card fighter"><span class="card-pts">1</span><span class="card-type">VOIMA</span></div><div class="card fighter"><span class="card-pts">1</span><span class="card-type">VOIMA</span></div><div class="card fighter"><span class="card-pts">1</span><span class="card-type">VOIMA</span></div><div class="card fighter"><span class="card-pts">1</span><span class="card-type">VOIMA</span></div></div>
+            <h3 id="hand-title">Käsikortit</h3>
+            <div id="hand-area" style="display:flex;flex-wrap:wrap;gap:4px;"></div>
           </div>
           <div style="margin-left:auto;text-align:left;">
             <h3 id="fort-title">Linnoitukset</h3>
-            <div id="fort-area" style="display:flex;flex-direction:row;gap:6px;flex-wrap:wrap;"><div class="card fortress"><span class="card-pts">2</span><span class="card-type">VAHVUUS</span></div><div class="card fortress"><span class="card-pts">1</span><span class="card-type">VAHVUUS</span></div></div>
+            <div id="fort-area" style="display:flex;flex-direction:row;gap:6px;flex-wrap:wrap;"></div>
           </div>
         </div>
       </div>
       <div class="panel">
         <h3>Tapahtumaloki</h3>
-        <div id="log"><div class="log-entry important">Aseta kapteeni: Punainen klikkaa omaa ruutua.</div></div>
+        <div id="log"></div>
       </div>
       <div class="panel">
         <h3>Toiminnot</h3>
