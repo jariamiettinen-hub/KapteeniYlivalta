@@ -1577,11 +1577,6 @@ function renderSide(){
 
   // Hand
   const cp=currentPlayer();
-  const multiHuman = G.players.filter(p=>p.human&&!p.eliminated).length > 1;
-  const needsReveal = cp.human && multiHuman && !G.handRevealed && (G.phase==='move'||G.phase==='place_captain');
-  const hideCards = cp.human && multiHuman && !G.handRevealed && G.phase==='attack';
-
-  document.getElementById('hand-title').textContent=`${COLOR_FI[cp.color]}: Sotilaat`;
   const handArea=document.getElementById('hand-area');
   const fortArea = document.getElementById('fort-area');
   const fortTitle = document.getElementById('fort-title');
@@ -1595,6 +1590,34 @@ function renderSide(){
   if(oldOverlay) oldOverlay.remove();
   const oldBoardOverlay = document.getElementById('board-reveal-overlay');
   if(oldBoardOverlay) oldBoardOverlay.remove();
+
+  // ONLINE-MONINPELI: jokainen laite näyttää aina VAIN oman pelaajansa kortit,
+  // riippumatta siitä kenen vuoro on. Vastustajien kortit näkyvät aina selkäpuolelta.
+  if(ONLINE.active){
+    const myP = G.players.find(p=>p.controlledBy===ONLINE.myId) || cp;
+    const isMyTurn = myP===cp;
+    document.getElementById('hand-title').textContent = `${COLOR_FI[myP.color]}: Sotilaat` + (isMyTurn?'':' (odota vuoroasi)');
+    myP.hand.forEach((card,i)=>{
+      const div=document.createElement('div');
+      div.className='card fighter'+(isMyTurn&&G.attackCards.includes(i)?' selected-card':'');
+      div.innerHTML=`<span class="card-pts">${card.pts}</span><span class="card-type">VOIMA</span>`;
+      if(isMyTurn && G.phase==='attack') div.onclick=()=>toggleAttackCard(i);
+      handArea.appendChild(div);
+    });
+    myP.fortHand.forEach((card)=>{
+      const div=document.createElement('div');
+      div.className='card fortress';
+      div.innerHTML=`<span class="card-pts">${card.pts}</span><span class="card-type">VAHVUUS</span>`;
+      fortArea.appendChild(div);
+    });
+    return;
+  }
+
+  const multiHuman = G.players.filter(p=>p.human&&!p.eliminated).length > 1;
+  const needsReveal = cp.human && multiHuman && !G.handRevealed && (G.phase==='move'||G.phase==='place_captain');
+  const hideCards = cp.human && multiHuman && !G.handRevealed && G.phase==='attack';
+
+  document.getElementById('hand-title').textContent=`${COLOR_FI[cp.color]}: Sotilaat`;
 
   if(needsReveal){
     // Show card backs while hidden
