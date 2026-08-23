@@ -1,11 +1,8 @@
-﻿<!DOCTYPE html>
-<html lang="fi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#1a1209">
+<!DOCTYPE html>
+<!-- saved from url=(0049)file:///C:/Users/jaria/Downloads/index%20(3).html -->
+<html lang="fi"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kapteeni Ylivalta</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
@@ -25,18 +22,11 @@
   * { margin:0; padding:0; box-sizing:border-box; }
 
 
-  html {
-    background: var(--bg);
-    height: 100%;
-  }
-
-
   body {
     background: var(--bg);
     font-family: 'EB Garamond', serif;
     color: var(--paper);
     min-height: 100vh;
-    min-height: 100dvh;
     background-image:
       radial-gradient(ellipse at 20% 20%, rgba(139,90,43,0.15) 0%, transparent 50%),
       radial-gradient(ellipse at 80% 80%, rgba(80,40,10,0.2) 0%, transparent 50%);
@@ -315,14 +305,15 @@
   <div class="main-area">
     <div id="board-wrap">
       <div id="board"></div>
-      <svg id="board-svg-overlay" id="mountain-svg"></svg>
+      <svg id="board-svg-overlay"></svg>
+      <div id="player-left-overlay" style="display:none;position:absolute;inset:0;z-index:50;align-items:center;justify-content:center;text-align:center;padding:20px;font-family:'Cinzel',serif;font-weight:700;font-size:1.4rem;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,0.6);"></div>
     </div>
     <div class="side">
       <div class="panel" id="players-panel">
         <h3>Pelaajat</h3>
         <div id="players-list"></div>
       </div>
-      <div id="win-screen"></div>
+      <div id="win-screen" style="display: none;"></div>
       <div class="panel" id="hand-fort-panel">
         <div id="hand-fort-inner" style="display:flex;flex-direction:row;align-items:flex-start;flex-wrap:wrap;">
           <div style="flex:1;">
@@ -349,24 +340,33 @@
 
 
 <!-- Setup Modal -->
-<div class="modal-bg" id="setup-modal">
+<div class="modal-bg" id="setup-modal" style="display: flex;">
   <div class="modal">
     <h2>⚔ Kapteeni Ylivalta ⚔</h2>
     <p style="font-style:italic;color:var(--gold2);font-size:0.85rem;margin:4px 0 10px">VALLOITA SUURIN YHTENÄINEN ALUE</p>
     <p>Valitse pelaajien määrä ja värit</p>
     <div style="margin:12px 0">
-      <label style="font-family:'Cinzel',serif;font-size:0.8rem;color:var(--gold2)">Pelaajia:</label>
+      <label style="font-family:&#39;Cinzel&#39;,serif;font-size:0.8rem;color:var(--gold2)">Pelaajia:</label>
       <select id="player-count" style="margin-left:8px">
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
       </select>
     </div>
-    <div id="player-color-setup" class="player-setup"></div>
+    <div id="player-color-setup" class="player-setup"><div class="setup-card chosen">
+      <div style="font-family:&#39;Cinzel&#39;,serif;font-size:0.8rem">Punainen</div>
+      <div class="color-dot" style="background:#c0392b"></div>
+      <div class="type-toggle" id="tt0">👤 Ihminen</div>
+    </div><div class="setup-card">
+      <div style="font-family:&#39;Cinzel&#39;,serif;font-size:0.8rem">Sininen</div>
+      <div class="color-dot" style="background:#2980b9"></div>
+      <div class="type-toggle" id="tt1">🤖 Tietokone</div>
+    </div></div>
     <p style="font-size:0.75rem;opacity:0.7;margin-top:8px">Napsauta väriä vaihtaaksesi ihminen/tietokone</p>
     <button class="btn btn-gold" id="btn-start" style="margin-top:16px;max-width:200px">Aloita peli</button>
+    <button class="btn btn-gray" id="btn-online" style="margin-top:8px;max-width:260px">🌐 Luo moninpeli (eri laitteilla)</button>
     <p style="margin-top:14px">
-      <button id="btn-show-rules" style="background:none;border:none;cursor:pointer;color:var(--gold2);font-family:'Cinzel',serif;font-size:0.8rem;text-decoration:underline;opacity:0.85;padding:0">KLIKKAA PELIN TARKEMMAT OHJEET TÄÄLTÄ</button>
+      <button id="btn-show-rules" style="background:none;border:none;cursor:pointer;color:var(--gold2);font-family:&#39;Cinzel&#39;,serif;font-size:0.8rem;text-decoration:underline;opacity:0.85;padding:0">KLIKKAA PELIN TARKEMMAT OHJEET TÄÄLTÄ</button>
     </p>
   </div>
 </div>
@@ -761,7 +761,7 @@
 <div id="rules-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.85);align-items:center;justify-content:center">
   <div style="position:relative;width:min(720px,96vw);height:88vh;border-radius:12px;overflow:hidden;box-shadow:0 8px 40px #000;background:#0d1b2a">
     <div style="position:sticky;top:0;z-index:10;display:flex;justify-content:flex-end;padding:10px 12px;background:rgba(13,27,42,0.95)">
-      <button id="btn-close-rules" style="background:#c9a84c;border:none;border-radius:6px;padding:5px 16px;cursor:pointer;font-family:'Cinzel',serif;font-size:0.85rem;color:#1a1208;font-weight:bold">✕ Sulje</button>
+      <button id="btn-close-rules" style="background:#c9a84c;border:none;border-radius:6px;padding:5px 16px;cursor:pointer;font-family:&#39;Cinzel&#39;,serif;font-size:0.85rem;color:#1a1208;font-weight:bold">✕ Sulje</button>
     </div>
     <div id="rules-inner" style="height:calc(100% - 46px);overflow-y:auto;padding:0">
 
@@ -876,13 +876,13 @@
   <h3>⚔ TAISTELU ⚔</h3>
   <div class="battle-row">
     <div class="battle-side">
-      <div id="bp-attacker-name" style="font-family:'Cinzel',serif;font-size:0.75rem;color:var(--gold2)"></div>
+      <div id="bp-attacker-name" style="font-family:&#39;Cinzel&#39;,serif;font-size:0.75rem;color:var(--gold2)"></div>
       <div id="bp-attack-pts" class="battle-pts" style="color:#ff8888"></div>
       <div style="font-size:0.7rem;opacity:0.7">Hyökkäys</div>
     </div>
     <div style="font-size:1.5rem;align-self:center">VS</div>
     <div class="battle-side">
-      <div id="bp-defender-name" style="font-family:'Cinzel',serif;font-size:0.75rem;color:var(--gold2)"></div>
+      <div id="bp-defender-name" style="font-family:&#39;Cinzel&#39;,serif;font-size:0.75rem;color:var(--gold2)"></div>
       <div id="bp-defend-pts" class="battle-pts" style="color:#88aaff"></div>
       <div style="font-size:0.7rem;opacity:0.7">Puolustus</div>
     </div>
@@ -896,7 +896,7 @@
 <!-- Fortify modal -->
 <div id="fortify-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:60;align-items:center;justify-content:center;backdrop-filter:blur(3px)">
   <div style="background:linear-gradient(135deg,#2a1f10,#1a1209);border:2px solid var(--gold);border-radius:10px;padding:24px 28px;max-width:400px;width:90%;text-align:center;box-shadow:0 0 40px rgba(200,168,75,0.4)">
-    <h3 style="font-family:'Cinzel',serif;color:var(--gold2);margin-bottom:6px">🏰 Linnoita alue?</h3>
+    <h3 style="font-family:&#39;Cinzel&#39;,serif;color:var(--gold2);margin-bottom:6px">🏰 Linnoita alue?</h3>
     <p style="font-size:0.82rem;opacity:0.8;margin-bottom:14px">Valitse linnoitus tai ohita</p>
     <div id="fortify-cards" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:16px"></div>
     <button class="btn btn-gray" id="btn-skip-fortify" style="max-width:180px">Ohita linnoitus</button>
@@ -933,6 +933,20 @@
 .score-big   { font-size:1.3rem; font-weight:700; color:var(--gold2); }
 </style>
 
+<!-- Online-moninpeli: Firebase Firestore -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<!-- Online-lobby -->
+<div class="modal-bg" id="online-modal" style="display:none">
+  <div class="modal" style="max-width:420px">
+    <h2>🌐 Moninpeli</h2>
+    <div id="online-modal-body"></div>
+    <p style="margin-top:14px">
+      <button id="btn-online-back" style="background:none;border:none;cursor:pointer;color:var(--gold2);font-family:'Cinzel',serif;font-size:0.75rem;text-decoration:underline;opacity:0.8;padding:0">← Takaisin</button>
+    </p>
+  </div>
+</div>
 
 <script>
 // ============================================================
@@ -967,6 +981,262 @@ function hasWall(r1,c1,r2,c2){
 
 let G = {}; // game state
 
+
+// ============================================================
+// ONLINE-MONINPELI (Firebase Firestore)
+// ============================================================
+// TÄRKEÄÄ: Täytä alle oman ilmaisen Firebase-projektisi tiedot,
+// jotta moninpeli toimii. Katso ohjeet keskustelun lopusta.
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyACzqELxoFNATA-j0cyAsOShpacEj7sp0s",
+  authDomain: "kapteeniylivalta.firebaseapp.com",
+  projectId: "kapteeniylivalta",
+  storageBucket: "kapteeniylivalta.firebasestorage.app",
+  messagingSenderId: "559289453260",
+  appId: "1:559289453260:web:590211638ff4e006f8d069"
+};
+
+let fbApp=null, db=null;
+function fbReady(){
+  if(db) return true;
+  if(!FIREBASE_CONFIG.apiKey || FIREBASE_CONFIG.apiKey==="TÄYTÄ_TÄHÄN") return false;
+  try{
+    fbApp = firebase.initializeApp(FIREBASE_CONFIG);
+    db = firebase.firestore();
+    return true;
+  }catch(e){ console.error(e); return false; }
+}
+
+const ONLINE = { active:false, roomId:null, myId:null, isHost:false, applyingRemote:false, gameStarted:false, unsub:null, lastLeftAt:null };
+
+function showPlayerLeftOverlay(color){
+  const ov = document.getElementById('player-left-overlay');
+  if(!ov) return;
+  ov.style.background = COLOR_DOT[color] || '#333';
+  ov.textContent = (COLOR_FI[color]||color).toUpperCase()+' POISTUI PELISTÄ';
+  ov.style.display='flex';
+  setTimeout(()=>{ location.href = location.pathname; }, 4000);
+}
+
+function getClientId(){
+  let id = localStorage.getItem('kapteeni_client_id');
+  if(!id){ id = 'p'+Math.random().toString(36).slice(2,10); localStorage.setItem('kapteeni_client_id', id); }
+  return id;
+}
+
+function roomCode(){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s=''; for(let i=0;i<5;i++) s+=chars[Math.random()*chars.length|0];
+  return s;
+}
+
+function roomLink(id){ return location.origin+location.pathname+'?room='+id; }
+
+// Kutsutaan renderAll():in lopussa. Lähettää tilan Firestoreen VAIN jos
+// muutos tehtiin paikallisesti (ei kun vastaanotimme etätilan).
+function syncOut(){
+  if(!ONLINE.active || ONLINE.applyingRemote || !db || !ONLINE.roomId) return;
+  db.collection('rooms').doc(ONLINE.roomId).update({
+    state: JSON.parse(JSON.stringify(G)),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).catch(e=>console.error('syncOut',e));
+}
+
+// Onko minun vuoroni toimia tässä online-pelissä?
+function myTurnOk(){
+  if(!ONLINE.active) return true;
+  const cp = currentPlayer();
+  return !!(cp && cp.human && cp.controlledBy===ONLINE.myId);
+}
+
+function showOnlineModal(html){
+  document.getElementById('online-modal-body').innerHTML = html;
+  document.getElementById('online-modal').style.display='flex';
+}
+function hideOnlineModal(){ document.getElementById('online-modal').style.display='none'; }
+document.getElementById('btn-online-back').onclick=()=>{ hideOnlineModal(); showSetup(); };
+
+// ---- HUONEEN LUONTI (isäntä) ----
+function createOnlineRoom(){
+  if(!fbReady()){
+    showOnlineModal('<p style="color:#ff8888">Firebase-yhteyttä ei ole vielä asetettu tähän peliin. Katso ohjeet ja täytä FIREBASE_CONFIG-tiedot pelin koodiin.</p>');
+    return;
+  }
+  const n = parseInt(document.getElementById('player-count').value);
+  const humans = [];
+  for(let i=0;i<n;i++) if(setupPlayers[i].human) humans.push(i);
+  if(humans.length===0){ alert('Aseta vähintään yksi väri "Ihminen" (sinä itse) ennen moninpelin luontia.'); return; }
+
+  const myId = getClientId();
+  const hostSlot = humans[0];
+  const slots = [];
+  for(let i=0;i<n;i++){
+    const p = setupPlayers[i];
+    slots.push({ color:p.color, type: p.human?'human':'ai', claimedBy: (p.human && i===hostSlot) ? myId : null });
+  }
+  const id = roomCode();
+  document.getElementById('setup-modal').style.display='none';
+  db.collection('rooms').doc(id).set({
+    hostId: myId, playerCount:n, slots, started:false,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(()=>{
+    ONLINE.active=true; ONLINE.roomId=id; ONLINE.myId=myId; ONLINE.isHost=true;
+    history.replaceState(null,'','?room='+id);
+    subscribeRoom(id);
+  }).catch(e=>{ showOnlineModal('<p style="color:#ff8888">Huoneen luonti epäonnistui: '+e.message+'</p>'); });
+  showOnlineModal('<p>Luodaan huonetta…</p>');
+}
+
+function renderLobby(d){
+  const link = roomLink(ONLINE.roomId);
+  const allClaimed = d.slots.every(s=>s.type==='ai' || s.claimedBy);
+  let rows = d.slots.map((s,i)=>{
+    let status = s.type==='ai' ? '🤖 Tietokone' : (s.claimedBy ? '✅ Liittynyt' : '⏳ Odottaa pelaajaa');
+    return '<div class="player-row" style="justify-content:space-between">'
+      +'<span><span class="player-dot" style="background:'+COLOR_DOT[s.color]+';display:inline-block;vertical-align:middle;margin-right:6px"></span>'+COLOR_FI[s.color]+'</span>'
+      +'<span style="font-size:0.75rem;opacity:0.85">'+status+'</span></div>';
+  }).join('');
+  let html = '<p style="font-size:0.85rem">Jaa tämä linkki muille pelaajille:</p>'
+    +'<div style="background:#231810;border:1px solid var(--gold);border-radius:4px;padding:8px;margin:8px 0;word-break:break-all;font-size:0.75rem">'+link+'</div>'
+    +'<button class="btn btn-gray" id="btn-copy-link" style="max-width:200px;margin:0 auto 12px;display:block">📋 Kopioi linkki</button>'
+    +'<div>'+rows+'</div>';
+  if(ONLINE.isHost){
+    html += '<button class="btn btn-gold" id="btn-start-online" style="margin-top:14px"'+(allClaimed?'':' disabled')+'>Aloita peli</button>';
+    if(!allClaimed) html += '<p style="font-size:0.7rem;opacity:0.7;margin-top:6px">Odotetaan kaikkien liittymistä…</p>';
+  } else {
+    html += '<p style="font-size:0.8rem;margin-top:12px;color:var(--gold2)">Odotetaan isäntää aloittamaan peli…</p>';
+  }
+  showOnlineModal(html);
+  const copyBtn=document.getElementById('btn-copy-link');
+  if(copyBtn) copyBtn.onclick=()=>{ navigator.clipboard?.writeText(link); copyBtn.textContent='✅ Kopioitu!'; setTimeout(()=>copyBtn.textContent='📋 Kopioi linkki',1500); };
+  const startBtn=document.getElementById('btn-start-online');
+  if(startBtn) startBtn.onclick=startOnlineGame;
+}
+
+function startOnlineGame(){
+  db.collection('rooms').doc(ONLINE.roomId).get().then(doc=>{
+    const d = doc.data();
+    buildOnlineGameState(d.slots);
+    ONLINE.gameStarted=true;
+    db.collection('rooms').doc(ONLINE.roomId).update({ started:true, state: JSON.parse(JSON.stringify(G)) });
+  });
+}
+
+function buildOnlineGameState(slots){
+  document.getElementById('setup-modal').style.display='none';
+  hideOnlineModal();
+  ONLINE.applyingRemote = true; // vältä väli-push ennen yhdistettyä started+state-kirjoitusta
+  const n = slots.length;
+  const players=[];
+  for(let i=0;i<n;i++){
+    const s = slots[i];
+    const fDeck=makeFighterDeck(s.color);
+    const fortDeck=makeFortDeck(s.color);
+    players.push({ color:s.color, human:s.type==='human', controlledBy: s.type==='human'?s.claimedBy:null,
+      fighterDeck:fDeck, fortDeck, hand:[], fortHand:[], eliminated:false });
+  }
+  const cells=[];
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) cells.push({r,c,owner:null,card:null,fort:null,captain:null,mountain:isMountain(r,c)});
+  const unitCounts = n===2?12:n===3?8:6;
+  const placements = planInitialPlacement(n);
+  for(let pi=0;pi<n;pi++){
+    const p=players[pi];
+    const pDeckFull=makeFighterDeck(p.color);
+    const units=Array.from({length:unitCounts},()=>({type:'fighter',pts:1,color:p.color,id:Math.random()}));
+    placements[pi].forEach((idx,i)=>{ const cell=cells[idx]; cell.owner=p.color; cell.card=units[i]; });
+    p.fighterDeck=pDeckFull.slice(unitCounts); shuffle(p.fighterDeck);
+    const myFortDeck=makeFortDeck(p.color); shuffle(myFortDeck);
+    p.fortDeck=myFortDeck.slice(2);
+    placements[pi].forEach((idx,i)=>{ cells[idx].fort = myFortDeck[i] || null; });
+    p.fortHand=myFortDeck.slice(unitCounts,unitCounts+2);
+    p.hand=p.fighterDeck.splice(0,6);
+  }
+  G = { players, cells, n, turn:0, phase:'place_captain', attacksLeft:0, firstRound:true,
+    gameOver:false, handRevealed:false, selected:null, attackCards:[], log:[], captainsPlaced:0 };
+  renderAll();
+  addLog('Aseta kapteeni: '+COLOR_FI[G.players[0].color]+' klikkaa omaa ruutua.','important');
+  ONLINE.applyingRemote = false;
+  if(!currentPlayer().human && ONLINE.isHost) setTimeout(aiPlaceCaptain, 1200);
+}
+
+// ---- LIITTYMINEN (vieras) ----
+function showJoinLobby(id){
+  document.getElementById('setup-modal').style.display='none';
+  showOnlineModal('<p>Yhdistetään huoneeseen '+id+'…</p>');
+  if(!fbReady()){
+    showOnlineModal('<p style="color:#ff8888">Firebase-yhteyttä ei ole asetettu tähän peliin. Pyydä isäntää tarkistamaan asetukset.</p>');
+    return;
+  }
+  const myId = getClientId();
+  ONLINE.myId=myId; ONLINE.roomId=id; ONLINE.isHost=false;
+  db.collection('rooms').doc(id).get().then(doc=>{
+    if(!doc.exists){ showOnlineModal('<p style="color:#ff8888">Huonetta ei löytynyt. Tarkista linkki.</p>'); return; }
+    const d = doc.data();
+    const alreadyMine = d.slots.some(s=>s.claimedBy===myId);
+    if(alreadyMine || !d.started){
+      ONLINE.active=true;
+      subscribeRoom(id);
+      if(!alreadyMine) renderJoinChoices(d);
+    } else {
+      showOnlineModal('<p style="color:#ff8888">Peli on jo alkanut etkä ehtinyt mukaan.</p>');
+    }
+  });
+}
+
+function renderJoinChoices(d){
+  const open = d.slots.map((s,i)=>({...s,i})).filter(s=>s.type==='human' && !s.claimedBy);
+  if(open.length===0){
+    showOnlineModal('<p style="color:#ff8888">Kaikki paikat on jo varattu.</p>');
+    return;
+  }
+  let html = '<p>Valitse väri, jota pelaat:</p><div class="player-setup" style="margin-top:10px">';
+  open.forEach(s=>{
+    html += '<div class="setup-card" data-i="'+s.i+'"><div style="font-family:\'Cinzel\',serif;font-size:0.8rem">'+COLOR_FI[s.color]+'</div><div class="color-dot" style="background:'+COLOR_DOT[s.color]+'"></div></div>';
+  });
+  html += '</div>';
+  showOnlineModal(html);
+  document.querySelectorAll('#online-modal-body .setup-card').forEach(el=>{
+    el.onclick=()=>{
+      const i = parseInt(el.dataset.i);
+      db.collection('rooms').doc(ONLINE.roomId).get().then(doc=>{
+        const dd = doc.data();
+        if(dd.slots[i].claimedBy){ renderJoinChoices(dd); return; } // joku ehti jo
+        dd.slots[i].claimedBy = ONLINE.myId;
+        db.collection('rooms').doc(ONLINE.roomId).update({slots:dd.slots});
+      });
+    };
+  });
+}
+
+// ---- YHTEINEN TILAKUUNTELIJA ----
+function subscribeRoom(id){
+  if(ONLINE.unsub) ONLINE.unsub();
+  ONLINE.unsub = db.collection('rooms').doc(id).onSnapshot(doc=>{
+    if(!doc.exists) return;
+    const d = doc.data();
+    if(!d.started){
+      if(!ONLINE.isHost){
+        const alreadyMine = d.slots.some(s=>s.claimedBy===ONLINE.myId);
+        if(!alreadyMine){ renderJoinChoices(d); return; }
+      }
+      renderLobby(d);
+      return;
+    }
+    // Peli on käynnissä
+    if(!ONLINE.gameStarted){ ONLINE.gameStarted=true; hideOnlineModal(); }
+    if(d.leftPlayerColor && d.leftAt && d.leftAt!==ONLINE.lastLeftAt){
+      ONLINE.lastLeftAt = d.leftAt;
+      showPlayerLeftOverlay(d.leftPlayerColor);
+      return; // ei enää päivitetä pelitilaa, ollaan siirtymässä alkutilaan
+    }
+    if(d.state){
+      ONLINE.applyingRemote=true;
+      G = d.state;
+      renderAll();
+      ONLINE.applyingRemote=false;
+    }
+  });
+}
 
 // --------- SETUP UI ---------
 function showSetup(){
@@ -1016,6 +1286,7 @@ function toggleHuman(i){
 
 document.getElementById('player-count').onchange=buildSetupUI;
 document.getElementById('btn-start').onclick=startGame;
+document.getElementById('btn-online').onclick=createOnlineRoom;
 
 // --------- RULES MODAL ---------
 (function(){
@@ -1131,7 +1402,7 @@ function startGame(){
   renderAll();
   addLog('Aseta kapteeni: '+COLOR_FI[G.players[0].color]+' klikkaa omaa ruutua.','important');
   // AI players place captain automatically
-  if(!currentPlayer().human) setTimeout(aiPlaceCaptain, 1200);
+  if(!currentPlayer().human && (!ONLINE.active||ONLINE.isHost)) setTimeout(aiPlaceCaptain, 1200);
 }
 
 
@@ -1154,6 +1425,7 @@ function renderAll(){
   renderPhaseBar();
   setTimeout(renderMountainSVG,0); // after DOM paint
   window.addEventListener('resize', ()=>{ clearTimeout(window._svgTimer); window._svgTimer=setTimeout(renderMountainSVG,100); });
+  syncOut();
 }
 
 
@@ -1320,11 +1592,6 @@ function renderSide(){
 
   // Hand
   const cp=currentPlayer();
-  const multiHuman = G.players.filter(p=>p.human&&!p.eliminated).length > 1;
-  const needsReveal = cp.human && multiHuman && !G.handRevealed && (G.phase==='move'||G.phase==='place_captain');
-  const hideCards = cp.human && multiHuman && !G.handRevealed && G.phase==='attack';
-
-  document.getElementById('hand-title').textContent=`${COLOR_FI[cp.color]}: Sotilaat`;
   const handArea=document.getElementById('hand-area');
   const fortArea = document.getElementById('fort-area');
   const fortTitle = document.getElementById('fort-title');
@@ -1338,6 +1605,34 @@ function renderSide(){
   if(oldOverlay) oldOverlay.remove();
   const oldBoardOverlay = document.getElementById('board-reveal-overlay');
   if(oldBoardOverlay) oldBoardOverlay.remove();
+
+  // ONLINE-MONINPELI: jokainen laite näyttää aina VAIN oman pelaajansa kortit,
+  // riippumatta siitä kenen vuoro on. Vastustajien kortit näkyvät aina selkäpuolelta.
+  if(ONLINE.active){
+    const myP = G.players.find(p=>p.controlledBy===ONLINE.myId) || cp;
+    const isMyTurn = myP===cp;
+    document.getElementById('hand-title').textContent = `${COLOR_FI[myP.color]}: Sotilaat` + (isMyTurn?'':' (odota vuoroasi)');
+    myP.hand.forEach((card,i)=>{
+      const div=document.createElement('div');
+      div.className='card fighter'+(isMyTurn&&G.attackCards.includes(i)?' selected-card':'');
+      div.innerHTML=`<span class="card-pts">${card.pts}</span><span class="card-type">VOIMA</span>`;
+      if(isMyTurn && G.phase==='attack') div.onclick=()=>toggleAttackCard(i);
+      handArea.appendChild(div);
+    });
+    myP.fortHand.forEach((card)=>{
+      const div=document.createElement('div');
+      div.className='card fortress';
+      div.innerHTML=`<span class="card-pts">${card.pts}</span><span class="card-type">VAHVUUS</span>`;
+      fortArea.appendChild(div);
+    });
+    return;
+  }
+
+  const multiHuman = G.players.filter(p=>p.human&&!p.eliminated).length > 1;
+  const needsReveal = cp.human && multiHuman && !G.handRevealed && (G.phase==='move'||G.phase==='place_captain');
+  const hideCards = cp.human && multiHuman && !G.handRevealed && G.phase==='attack';
+
+  document.getElementById('hand-title').textContent=`${COLOR_FI[cp.color]}: Sotilaat`;
 
   if(needsReveal){
     // Show card backs while hidden
@@ -1415,6 +1710,7 @@ function renderPhaseBar(){
 function handleCellClick(idx){
   const cp=currentPlayer();
   if(!cp.human) return;
+  if(!myTurnOk()) return;
   const cell=G.cells[idx];
 
 
@@ -1439,11 +1735,11 @@ function handleCellClick(idx){
         G.handRevealed=false;
         renderAll();
         addLog('--- Peli alkaa! '+COLOR_FI[G.players[0].color]+' hyökkää. ---','important');
-        if(!currentPlayer().human) setTimeout(aiTurn,1200);
+        if(!currentPlayer().human && (!ONLINE.active||ONLINE.isHost)) setTimeout(aiTurn,1200);
       } else {
         renderAll();
         addLog('Aseta kapteeni: '+COLOR_FI[G.players[G.turn].color]+(G.players[G.turn].human?' klikkaa omaa ruutua.':' (AI)...'),'important');
-        if(!currentPlayer().human) setTimeout(aiPlaceCaptain,1200);
+        if(!currentPlayer().human && (!ONLINE.active||ONLINE.isHost)) setTimeout(aiPlaceCaptain,1200);
       }
     }
     return;
@@ -1486,14 +1782,29 @@ function handleCellClick(idx){
 
 
 function toggleAttackCard(i){
+  if(!myTurnOk()) return;
   if(G.attackCards.includes(i)) G.attackCards=G.attackCards.filter(x=>x!==i);
   else G.attackCards.push(i);
   renderSide();
+  syncOut();
 }
 
 
 
-document.getElementById('btn-new-game').onclick=showSetup;
+document.getElementById('btn-new-game').onclick=()=>{
+  if(ONLINE.active){
+    const myP = G.players && G.players.find(p=>p.controlledBy===ONLINE.myId);
+    if(myP && ONLINE.roomId && db && G.phase && !G.gameOver){
+      db.collection('rooms').doc(ONLINE.roomId).update({
+        leftPlayerColor: myP.color,
+        leftAt: Date.now()
+      }).catch(()=>{}).finally(()=>{ location.href = location.pathname; });
+      return;
+    }
+    location.href = location.pathname; return;
+  }
+  showSetup();
+};
 
 
 // --------- MOVEMENT ---------
@@ -1780,12 +2091,13 @@ function endTurn(){
     addLog(COLOR_FI[newCp.color]+' käsikortit loppu — vuoro siirtyy.','important');
     G.phase='draw'; endTurn(); return;
   }
-  if(!newCp.human) setTimeout(aiTurn,1200);
+  if(!newCp.human && (!ONLINE.active||ONLINE.isHost)) setTimeout(aiTurn,1200);
 }
 
 
 // --------- AI ---------
 function aiTurn(){
+  if(ONLINE.active && !ONLINE.isHost) return;
   const cp=currentPlayer();
   if(cp.human||cp.eliminated) return;
 
@@ -1909,6 +2221,7 @@ function aiTurn(){
 
 // --------- AI PLACE CAPTAIN ---------
 function aiPlaceCaptain(){
+  if(ONLINE.active && !ONLINE.isHost) return;
   const cp=currentPlayer();
   if(cp.human||cp.eliminated) return;
   const ownCells=G.cells.filter(c=>c.owner===cp.color&&!c.captain);
@@ -1928,11 +2241,11 @@ function aiPlaceCaptain(){
       G.firstRound=true;
           renderAll();
       addLog('--- Peli alkaa! '+COLOR_FI[G.players[0].color]+' hyökkää. ---','important');
-      if(!currentPlayer().human) setTimeout(aiTurn,1200);
+      if(!currentPlayer().human && (!ONLINE.active||ONLINE.isHost)) setTimeout(aiTurn,1200);
     } else {
       renderAll();
       addLog('Aseta kapteeni: '+COLOR_FI[G.players[G.turn].color]+(G.players[G.turn].human?' klikkaa omaa ruutua.':' (AI)...'),'important');
-      if(!currentPlayer().human) setTimeout(aiPlaceCaptain,1200);
+      if(!currentPlayer().human && (!ONLINE.active||ONLINE.isHost)) setTimeout(aiPlaceCaptain,1200);
     }
   }
 }
@@ -2014,6 +2327,7 @@ function showWin(reason){
   document.getElementById('hand-fort-panel').style.display = 'none';
   document.getElementById('phase-text').textContent = '';
   document.getElementById('phase-sub').textContent = '';
+  syncOut();
 }
 
 
@@ -2034,7 +2348,12 @@ function currentPlayer(){ return G.players[G.turn]; }
 
 
 // --------- INIT ---------
-showSetup();
+(function(){
+  const params = new URLSearchParams(location.search);
+  const room = params.get('room');
+  if(room){ showJoinLobby(room); }
+  else { showSetup(); }
+})();
 </script>
-</body>
-</html>
+
+</body></html>
