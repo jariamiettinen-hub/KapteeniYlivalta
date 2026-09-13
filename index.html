@@ -1428,6 +1428,7 @@ function renderAll(){
   renderBoard();
   renderSide();
   renderPhaseBar();
+  if(G.gameOver) renderWinScreen();
   setTimeout(renderMountainSVG,0); // after DOM paint
   window.addEventListener('resize', ()=>{ clearTimeout(window._svgTimer); window._svgTimer=setTimeout(renderMountainSVG,100); });
   syncOut();
@@ -2297,6 +2298,12 @@ function calcScores(){
 function showWin(reason){
   if(G.gameOver) return;
   G.gameOver = true;
+  G.gameOverReason = reason;
+  renderWinScreen();
+  syncOut();
+}
+
+function renderWinScreen(){
   const scores = calcScores();
   const ranked = [...scores].sort((a,b) => b.largest-a.largest || b.total-a.total);
   const winner = ranked[0];
@@ -2332,7 +2339,6 @@ function showWin(reason){
   document.getElementById('hand-fort-panel').style.display = 'none';
   document.getElementById('phase-text').textContent = '';
   document.getElementById('phase-sub').textContent = '';
-  syncOut();
 }
 
 
