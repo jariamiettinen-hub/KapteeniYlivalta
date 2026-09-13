@@ -1977,21 +1977,23 @@ function launchAttack(captainIdx,targetIdx){
         G.enemyCaptainColor = color;
         G.afterEnemyPlacement = ()=>{
           G.phase='attack';
+          checkWin();
+          if(G.gameOver) return;
           if(G.attacksLeft<=0 || cp.hand.length===0){ G.phase='draw'; endTurn(); }
           else { G.selected=null; renderAll(); }
-          checkWin();
         };
         renderAll();
         addLog('Sijoita '+COLOR_FI[color]+' kapteeni: klikkaa vihollisen ruutua.','important');
         return;
       }
+      checkWin();
+      if(G.gameOver) return;
       if(G.attacksLeft<=0){ G.phase='draw'; endTurn(); }
       else if(cp.hand.length===0){
         addLog(COLOR_FI[cp.color]+' käsikortit loppu — vuoro siirtyy.','important');
         G.phase='draw'; endTurn();
       }
       else { G.selected=null; renderAll(); }
-      checkWin();
     };
 
 
@@ -2076,7 +2078,6 @@ function endTurn(){
 
   // Check if all players' cards exhausted AFTER this draw
   if(allCardsExhausted()){
-    renderAll();
     showWin('Kaikilla pelaajilla sotilaat loppu');
     return;
   }
